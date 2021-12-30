@@ -25,7 +25,7 @@ resize(canvas);
 const graph = new Graph<number>();
 const renderer = new Renderer<number>(graph, canvas);
 
-const vertices = Array(10)
+const vertices = Array(8)
   .fill(0)
   .map((_v, i) => i);
 
@@ -33,9 +33,13 @@ for (const vertex of vertices) {
   graph.addVertex(vertex);
 }
 
-for (const vertex of vertices) {
-  console.log(vertex, (vertex + 1) % vertices.length);
-  graph.addEdge(vertex, (vertex + 1) % vertices.length);
+for (const v1 of vertices) {
+  for (const v2 of vertices) {
+    if (v1 == v2) continue;
+    if (Math.random() < 0.2) {
+      graph.addEdge(v1, v2);
+    }
+  }
 }
 
 let previous: number;
